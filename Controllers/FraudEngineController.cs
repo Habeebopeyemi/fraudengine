@@ -22,6 +22,7 @@ namespace fraudengine.Controllers
         {
             var dataView = _mlContext.Data.LoadFromTextFile<TransactionHistoryData>(path: _dataPath, hasHeader: true, separatorChar: ',');
             var predictions = DetectSpike(_mlContext, _docSize, dataView);
+
             // Filter predictions where the first index is 1, indicating a spike
             var spikes = predictions.Where(p => p.Prediction[0] == 1).ToArray();
 
